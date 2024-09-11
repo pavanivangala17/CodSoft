@@ -1,0 +1,49 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGame {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        // Game settings
+        int minNumber = 1;
+        int maxNumber = 100;
+        int maxAttempts = 10;
+        int rounds = 3;
+
+        // Game loop
+        for (int round = 1; round <= rounds; round++) {
+            System.out.println("\nRound " + round);
+            System.out.println("I've chosen a number between " + minNumber + " and " + maxNumber + ". Can you guess it?");
+
+            // Generate random number
+            int secretNumber = random.nextInt(maxNumber - minNumber + 1) + minNumber;
+
+            // Attempts loop
+            for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+                System.out.print("Enter your guess: ");
+                int guess = scanner.nextInt();
+
+                // Check guess
+                if (guess < secretNumber) {
+                    System.out.println("Too low! Try again.");
+                } else if (guess > secretNumber) {
+                    System.out.println("Too high! Try again.");
+                } else {
+                    System.out.println("Congratulations! You guessed the number " + secretNumber + " in " + attempt + " attempts.");
+                    break; // Exit attempts loop if guess is correct
+                }
+
+                // Check if max attempts reached
+                if (attempt == maxAttempts) {
+                    System.out.println("You ran out of attempts! The number was " + secretNumber);
+                }
+            }
+        }
+
+        System.out.println("\nThanks for playing!");
+        scanner.close();
+    }
+}
